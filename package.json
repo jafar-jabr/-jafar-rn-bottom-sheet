@@ -34,7 +34,12 @@
   "keywords": [
     "react-native",
     "ios",
-    "android"
+    "android",
+    "bottom-sheet",
+    "bottom-sheet-ios",
+    "bottom-sheet-android",
+    "bottom-sheet-react-native",
+    "action-sheet"
   ],
   "repository": "https://github.com/jafar-jabr/jafar-rn-bottom-sheet",
   "author": "Jafar Jabr <jafar.jabr.dev@gmail.com> (https://github.com/jafar-jabr)",

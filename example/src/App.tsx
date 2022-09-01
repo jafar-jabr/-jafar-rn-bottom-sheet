@@ -1,8 +1,16 @@
 import * as React from 'react';
-
-import { StyleSheet, View, Text, TouchableOpacity, Button } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+  Button,
+  ScrollView,
+  Pressable,
+} from 'react-native';
 import BottomSheet from '@jafar/rn-bottom-sheet';
 import { useState } from 'react';
+import AnimateBox from '../../src/AnimateBox';
 
 export default function App() {
   const [isOpened, setIsOpen] = useState(true);
@@ -10,32 +18,54 @@ export default function App() {
   const toggleSheet = () => {
     setIsOpen((prevState) => !prevState);
   };
+  let i = 0;
+  const clickCheck = () => {
+    i += 1;
+    console.warn('click check', i);
+  };
   const didClosed = () => {
-    console.warn('closed');
+    setIsOpen(false);
+    // console.warn('closed');
   };
 
   return (
     <View style={styles.container}>
+      <AnimateBox />
       <Button title="toggleSheet" onPress={toggleSheet} />
       <BottomSheet
         isVisible={isOpened}
         onClose={didClosed}
+        enablePanDownToClose={false}
         animationDuration={1000}
-        heightRatio={0.4}
-        containerStyle={{
-          backgroundColor: 'red',
-          width: '90%',
-          borderTopLeftRadius: 24,
-          borderTopRightRadius: 24,
-          opacity: 1,
-        }}
       >
-        <View style={styles.container}>
-          <TouchableOpacity onPress={toggleSheet}>
-            <Text>X</Text>
-          </TouchableOpacity>
-          <Text style={styles.title}>children components here</Text>
-          <Text style={styles.title}>other components here</Text>
+        <View style={styles.parent}>
+          <ScrollView
+            style={[
+              styles.container,
+              {
+                backgroundColor: 'red',
+                borderTopLeftRadius: 24,
+                borderTopRightRadius: 24,
+                opacity: 1,
+              },
+            ]}
+            contentContainerStyle={{ flexGrow: 1 }}
+          >
+            <TouchableOpacity onPress={toggleSheet}>
+              <Text>X</Text>
+            </TouchableOpacity>
+            {/*<Pressable>*/}
+            <Text style={styles.title}>children components here</Text>
+            {/*{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map((r) => (*/}
+            {/*  <Text key={r} style={styles.title}>*/}
+            {/*    other components here of {r}*/}
+            {/*  </Text>*/}
+            {/*))}*/}
+            <Pressable onPress={clickCheck}>
+              <Text style={{ paddingBottom: 40 }}>Click me to see</Text>
+            </Pressable>
+            {/*</Pressable>*/}
+          </ScrollView>
         </View>
       </BottomSheet>
     </View>
@@ -43,17 +73,18 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  parent: {
+    maxHeight: '60%',
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  title: {},
-  box: {
-    backgroundColor: '#e87b7b',
-    flex: 1,
-    width: 360,
-    height: 460,
-    marginVertical: 20,
+  container: {
+    flex: 0,
+    marginTop: 20,
+    width: '100%',
+  },
+  title: {
+    height: 100,
   },
 });

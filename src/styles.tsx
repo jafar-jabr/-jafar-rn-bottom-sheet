@@ -8,7 +8,7 @@ export default {
     alignItems: 'flex-end',
     backgroundColor: 'rgba(52, 52, 52, 0.8)',
     justifyContent: 'center',
-    flex: 1,
+    flex: 0,
     flexDirection: 'row',
   },
 };
